@@ -22,19 +22,24 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
 	//rank, size and dimension, common to all processes
+	//i and j are used only as loop variables in different places
 	int rank, size, dimension, i, j;
 
 	//input and output matrices
+	//resPij stores the final result of processingElement[i,j] and is later passed on to rank 0 using MPI_Gather().
 	double *buffer, *matrixA, *matrixB, *matrixC, resPij = 0.0, currentElementFromA, currentElementFromB, tempA, tempB;
 
 	//MPI interfaces to initalize environment and get rank, size. [DEBUG]
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPICW, &rank);
 	MPI_Comm_size(MPICW, &size);
+
+	//MPI_Status and MPI_Request variables are used for calls to MPI_Ibsend() and MPI_Ibrecv().
+	//MPI_Request variable can be used to call MPI_Wait() for waiting for a particular process.
 	MPI_Status status;
 	MPI_Request request, reqSendA, reqSendB, reqRecv;
 
-	//Initializing dimension as sqrt(size) because the number of processes = total number of elements in either of the input matrix
+	//Initializing dimension as sqrt(size) because the number of processes = total number of elements in either of the input matrix.
 	dimension = (int)sqrt(size);
 	int sizeOfBuffer = 2 * dimension*dimension;
 	matrixA = (double*)calloc(dimension*dimension, sizeof(double));

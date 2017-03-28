@@ -1,5 +1,5 @@
 ﻿  Source.cpp
-c:\users\ayush\documents\visual studio 2017\projects\consoleapplication1\consoleapplication1\source.cpp(74): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\ayush\documents\visual studio 2017\projects\consoleapplication1\consoleapplication1\source.cpp(23): warning C4101: 'reqRecv': unreferenced local variable
+c:\users\ayush\documents\visual studio 2017\projects\consoleapplication1\consoleapplication1\source.cpp(86): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\ayush\documents\visual studio 2017\projects\consoleapplication1\consoleapplication1\source.cpp(35): warning C4101: 'reqRecv': unreferenced local variable
   ConsoleApplication1.vcxproj -> C:\Users\Ayush\Documents\Visual Studio 2017\Projects\ConsoleApplication1\Debug\CannonsAlgo.exe
   ConsoleApplication1.vcxproj -> C:\Users\Ayush\Documents\Visual Studio 2017\Projects\ConsoleApplication1\Debug\CannonsAlgo.pdb (Partial PDB)
