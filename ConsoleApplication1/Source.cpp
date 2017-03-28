@@ -7,6 +7,18 @@
 #define MPICW MPI_COMM_WORLD
 using namespace std;
 
+/*
+	Author: Ayush Soni and Rishabh Agarwal
+	
+	Date: 17/03/17
+	
+	Title: Cannon's Algorithm using Message Passing Interface(MPI)
+	
+	Description: Square matrix multiplication using NxN processing elements, arranged in a mesh topology.
+	
+	Github link: https://github.com/Ayush-Soni/CannonsAlgorithmMPI
+*/
+
 int main(int argc, char* argv[]) {
 
 	//rank, size and dimension, common to all processes
@@ -39,21 +51,21 @@ int main(int argc, char* argv[]) {
 		//printf("\nEnter Matrix A[%d][%d]:", dimension, dimension);
 		for (i = 0; i<dimension; i++) {
 			for (j = 0; j<dimension; j++) {
-				matrixA[i*dimension + j] = i*dimension + j + 1;
-				//cin >> matrixA[i*dimension + j];
-				cout<< matrixA[i*dimension + j]<<" ";
+				//matrixA[i*dimension + j] = i*dimension + j + 1;
+				cin >> matrixA[i*dimension + j];
+				//cout<< matrixA[i*dimension + j]<<" ";
 			}
-			cout <<"\n";
+			//cout <<"\n";
 		}
 		fflush(stdout);
-		printf("\nEnter Matrix B[%d][%d]:\n", dimension, dimension);
+		printf("\nMatrix B[%d][%d]:\n", dimension, dimension);
 		for (i = 0; i<dimension; i++) {
 			for (j = 0; j<dimension; j++) {
-				matrixB[i*dimension + j] = dimension*dimension - i*dimension - j;
-				//cin >> matrixB[i*dimension + j];
-				cout<< matrixB[i*dimension + j]<<" ";
+				//matrixB[i*dimension + j] = dimension*dimension - i*dimension - j;
+				cin >> matrixB[i*dimension + j];
+				//cout<< matrixB[i*dimension + j]<<" ";
 			}
-			cout << "\n";
+			//cout << "\n";
 		}
 		fflush(stdout);
 	}
@@ -95,6 +107,15 @@ int main(int argc, char* argv[]) {
 
 
 	//Algorithm [DEBUG]
+	/*
+		row i of matrix a is circularly shifted by i elements to the left.
+		col j of matrix b is circularly shifted by j elements up.
+		Repeat n times:
+			p[i][j] multiplies its two entries and adds to running total.
+			circular shift each row of a 1 element left
+			circular shift each col of b 1 element up
+	*/
+
 	int sourceRankA = floor((double)((rank + 1) / dimension))>floor((double)(rank / dimension)) ? (rank + 1 - dimension) : (rank + 1);
 	int destinationRankA = ((floor((double)((rank - 1) / dimension))<floor((double)(rank / dimension)))||(rank-1<0))? (rank - 1 + dimension) : (rank - 1);
 	int sourceRankB = (rank + dimension)>=dimension*dimension ? (rank + dimension - dimension*dimension) : (rank + dimension);
